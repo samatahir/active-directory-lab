@@ -1,72 +1,95 @@
-
-
 <p align="center">
 <img src="https://i.imgur.com/pU5A58S.png" alt="Microsoft Active Directory Logo"/>
 </p>
 
-# Active Directory in Azure Virtual Machines
+# Active Directory Lab — Azure Domain Environment
 
-In this lab, I set up an Active Directory environment using Azure Virtual Machines. I configured a domain controller, connected a Windows client to the domain, created user accounts, and tested remote access.
+This lab demonstrates building a small Active Directory environment on Azure Virtual Machines. It documents the architecture, deployment steps, configuration commands, and validation checks I used to configure a domain controller and join a Windows client to the domain.
 
-<h2>Environments and Technologies Used</h2>
+## Lab goals
 
-- Microsoft Azure (Virtual Machines)
-- Remote Desktop
-- Active Directory Domain Services
-- PowerShell
-- DNS
+- Deploy a simple AD lab in Azure with one domain controller (DC-1) and one client VM (Client-1).
+- Configure DNS, promote the domain controller, and create OUs and user accounts.
+- Join a Windows client to the domain and validate authentication and remote access.
+- Automate user provisioning with PowerShell for testing scale and access scenarios.
 
-<h2>Operating Systems Used</h2>
+## Environments and Technologies
 
-- Windows Server 2022
-- Windows 10 (21H2)
+- Microsoft Azure (Virtual Machines, Virtual Network)
+- Active Directory Domain Services (Windows Server)
+- Remote Desktop (RDP)
+- PowerShell (automation and bulk account creation)
+- DNS (Windows DNS role)
 
-<h2>Deployment and Configuration Steps</h2>
+## Operating systems
 
-I started by creating two virtual machines in the same virtual network. DC-1 will act as the domain controller, while Client-1 will be the Windows client.
+- Windows Server 2022 (Domain Controller)
+- Windows 10 (Client)
 
-I assigned DC-1 a static private IP address so the client could reliably connect to it. I then tested the connection by pinging DC-1 from Client-1. The ping didn't work at first, so I enabled the appropriate ICMPv4 rule in the Windows Firewall. After that, the connection worked.
+## Architecture overview
+
+- DC-1: Domain controller and DNS server, assigned a static private IP inside the lab VNet.
+- Client-1: Windows client in the same VNet, configured to use DC-1 as its DNS server.
+
+## Deployment and key steps
+
+1. Provision two Azure VMs in the same Virtual Network and subnet: DC-1 (Server) and Client-1 (Client).
+2. Assign a static private IP address to DC-1 (Azure NIC configuration) to ensure reliable DNS resolution.
+3. Enable the necessary NSG rules or Windows Firewall ports for RDP, DNS (TCP/UDP 53), and AD replication if extending the lab.
+4. Install Active Directory Domain Services on DC-1 and promote to a domain controller (example PowerShell):
+
+```powershell
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+Import-Module ADDSDeployment
+Install-ADDSForest -DomainName "mydomain.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force) -InstallDNS
+```
+
+5. After promotion and reboot, create Organizational Units and test user creation (GUI or PowerShell):
+
+```powershell
+New-ADOrganizationalUnit -Name "EMPLOYEES" -Path "DC=mydomain,DC=local"
+New-ADOrganizationalUnit -Name "ADMINS" -Path "DC=mydomain,DC=local"
+New-ADUser -Name "Jane Doe" -SamAccountName "jane.doe" -AccountPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force) -Enabled $true
+Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
+```
+
+6. Configure Client-1's network DNS settings to point at DC-1's private IP, reboot, and join the domain.
+7. Enable Remote Desktop on Client-1 and grant domain users access as required.
+8. Optionally, use a PowerShell script to generate bulk test accounts to validate scale and authentication workflows.
+
+## Validation and testing
+
+- Ping and resolve DC-1 from Client-1 to confirm DNS and network connectivity.
+- Confirm the client shows the domain under System Properties > Computer Name.
+- Test logins with created domain users via RDP.
+- Verify DNS records and SRV records were created in the DNS management console on DC-1.
+
+## Artifacts and screenshots
 
 <p>
 <img src="https://i.imgur.com/d22FHIm.png" width="80%" alt="Azure virtual machine setup"/>
 </p>
 
 <p>
-<img src="https://i.imgur.com/HvZBWzc.png" width="60%" alt="Testing the connection between virtual machines"/>
+<img src="https://i.imgur.com/cGjvRke.png" width="80%" alt="Active Directory Users and Computers"/>
 </p>
 
-<img src="https://i.imgur.com/1lrrGPw.png" width="60%" alt="Network connectivity test"/>
-
-Next, I installed Active Directory Domain Services on DC-1 and promoted it to a domain controller. I created a new forest called `mydomain.com` and restarted the server. After logging back in with `mydomain.com\labuser`, I opened Active Directory Users and Computers to check the setup.
-
-<img src="https://i.imgur.com/cGjvRke.png" width="80%" alt="Active Directory Users and Computers"/>
-
-I then created two organizational units named `_EMPLOYEES` and `_ADMINS` to keep the user accounts organized. I also created a user named Jane Doe with the username `Jane_admin` and added the account to the Domain Admins group.
-
-<img src="https://i.imgur.com/hL7g5Y5.png" width="80%" alt="Creating organizational units"/>
-
-<img src="https://i.imgur.com/kcgvzdE.png" width="50%" alt="Creating a domain user"/>
-
-After setting up Active Directory, I changed Client-1's DNS settings in Azure to use DC-1's private IP address. I restarted the client and checked that it was using the correct DNS server.
-
-<img src="https://i.imgur.com/jbrGTXW.png" width="80%" alt="Client DNS settings"/>
-
-<img src="https://i.imgur.com/kvcm2cY.jpg" width="80%" alt="Client virtual machine"/>
-
-Once DNS was configured, I joined Client-1 to the `mydomain.com` domain using my domain credentials. After restarting the machine, I checked that it had successfully joined the domain.
-
+<p>
 <img src="https://i.imgur.com/Ze0Em5e.png" width="80%" alt="Client joined to the domain"/>
+</p>
 
-I also configured Remote Desktop on Client-1 so regular domain users could log in. I updated the access settings and allowed the appropriate domain users to connect.
+## Notes and lessons learned
 
-<img src="https://i.imgur.com/SApOKiE.png" width="80%" alt="Remote Desktop settings"/>
+- Use a static private IP or a reserved IP for the domain controller to avoid DNS issues when joining clients.
+- Ensure the Azure network security rules and Windows Firewall allow DNS and RDP traffic for lab testing.
+- Automating user creation with PowerShell is useful to stress-test authentication and session limits, but always secure test credentials and remove them after testing.
 
-To test the setup with multiple accounts, I used a PowerShell script to create thousands of domain users. I then selected one of the accounts and tried logging in to Client-1 through Remote Desktop.
+## Next steps / Improvements
 
-<img src="https://i.imgur.com/EzWG8ug.png" width="80%" alt="PowerShell script for creating users"/>
+- Add an additional domain controller to validate replication and failover.
+- Integrate Sysmon and centralized logging (Splunk / ELK / Azure Sentinel) to practice detection engineering in an AD environment.
+- Add Group Policy objects (GPOs) to demonstrate configuration management and baseline hardening.
 
-<img src="https://i.imgur.com/Gkpe68K.png" width="60%" alt="Generated domain users"/>
+---
 
-<img src="https://i.imgur.com/n3gMwQV.png" width="60%" alt="Remote Desktop login test"/>
-
-The script created a user with the username `bab.hubo`, and I was able to log in to Client-1 with that account as a regular domain user. This confirmed that the domain setup and user access were working as expected.
+If you'd like, I can also update the main portfolio README to use the exact project label "Active Directory Lab" (instead of the current phrasing).
