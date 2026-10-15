@@ -4,7 +4,7 @@
 
 # Active Directory Lab — Azure Domain Environment
 
-This lab demonstrates building a small Active Directory environment on Azure Virtual Machines. It documents the architecture, deployment steps, configuration commands, and validation checks I used to configure a domain controller and join a Windows client to the domain.
+In this lab, I demonstrate building a small Active Directory environment on Azure Virtual Machines. I documented the architecture, deployment steps, configuration commands, and validation checks I used to configure a domain controller and join a Windows client to the domain.
 
 ## Lab goals
 
