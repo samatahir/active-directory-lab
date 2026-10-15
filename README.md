@@ -4,7 +4,7 @@
 
 # Active Directory Lab — Azure Domain Environment
 
-In this lab, I demonstrate building a small Active Directory environment on Azure Virtual Machines. I documented the architecture, deployment steps, configuration commands, and validation checks I used to configure a domain controller and join a Windows client to the domain.
+In this lab, I demonstrate building a small Active Directory environment on Azure Virtual Machines. I documented the architecture, deployment steps, configuration commands, and validation checks I use[...] 
 
 ## Lab goals
 
@@ -69,14 +69,17 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
 <p>
 <img src="https://i.imgur.com/d22FHIm.png" width="80%" alt="Azure virtual machine setup"/>
 </p>
+<p align="center"><em>Figure — Azure virtual machine setup: VM names, VNet, subnet, and NIC layout used in this lab.</em></p>
 
 <p>
 <img src="https://i.imgur.com/cGjvRke.png" width="80%" alt="Active Directory Users and Computers"/>
 </p>
+<p align="center"><em>Figure — Active Directory Users and Computers: Created organizational units (_EMPLOYEES, _ADMINS) and example test user accounts.</em></p>
 
 <p>
 <img src="https://i.imgur.com/Ze0Em5e.png" width="80%" alt="Client joined to the domain"/>
 </p>
+<p align="center"><em>Figure — Client joined to the domain: System Properties showing the computer is a member of mydomain.com.</em></p>
 
 ## Notes and lessons learned
 
