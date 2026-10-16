@@ -95,4 +95,4 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
 
 ---
 
-If you'd like, I can also update the main portfolio README to use the exact project label "Active Directory Lab" (instead of the current phrasing).
+
