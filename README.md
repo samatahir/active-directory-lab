@@ -35,7 +35,7 @@ In this lab, I demonstrate building a small Active Directory environment on Azur
 
 1. Provision two Azure VMs in the same Virtual Network and subnet: DC-1 (Server) and Client-1 (Client).
 2. Assign a static private IP address to DC-1 (Azure NIC configuration) to ensure reliable DNS resolution.
-3. Enable the necessary NSG rules or Windows Firewall ports for RDP, DNS (TCP/UDP 53), and AD replication if extending the lab.
+3. Enable the necessary NSG rules or Windows Firewall ports for RDP, DNS (TCP/UDP 53), and AD replication.
 4. Install Active Directory Domain Services on DC-1 and promote to a domain controller (example PowerShell):
 
 ```powershell
@@ -55,7 +55,6 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
 
 6. Configure Client-1's network DNS settings to point at DC-1's private IP, reboot, and join the domain.
 7. Enable Remote Desktop on Client-1 and grant domain users access as required.
-8. Optionally, use a PowerShell script to generate bulk test accounts to validate scale and authentication workflows.
 
 ## Validation and testing
 
