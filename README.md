@@ -87,12 +87,5 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
 - Ensure the Azure network security rules and Windows Firewall allow DNS and RDP traffic for lab testing.
 - Automating user creation with PowerShell is useful to stress-test authentication and session limits, but always secure test credentials and remove them after testing.
 
-## Next steps / Improvements
-
-- Add an additional domain controller to validate replication and failover.
-- Integrate Sysmon and centralized logging (Splunk / ELK / Azure Sentinel) to practice detection engineering in an AD environment.
-- Add Group Policy objects (GPOs) to demonstrate configuration management and baseline hardening.
-
----
 
 
