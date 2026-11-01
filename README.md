@@ -83,7 +83,7 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "jane.doe"
 ## Notes and lessons learned
 
 - Use a static private IP or a reserved IP for the domain controller to avoid DNS issues when joining clients
-- Ensure the Azure network security rules and Windows Firewall allow DNS and RDP traffic for lab testing.
+- Azure network security rules and Windows Firewall allow DNS and RDP traffic for lab testing.
 - Automating user creation with PowerShell is useful to stress-test authentication and session limits
 
 
