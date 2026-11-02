@@ -5,7 +5,8 @@
 # Active Directory Lab — Azure Domain Environment
 
 In this lab, I demonstrate building a small Active Directory environment on Azure Virtual Machines. I documented the architecture, deployment steps, configuration commands, and validation checks 
-#Note: This is a practice lab. All accounts and passwords are throwaway test values.#
+
+**Note:** This is a practice. All the accounts/ passwords are just throwaway testvalues and are not used anywhere else.
 
 ## Lab goals
 
