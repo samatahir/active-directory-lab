@@ -6,7 +6,7 @@
 
 In this lab, I demonstrate building a small Active Directory environment on Azure Virtual Machines. I documented the architecture, deployment steps, configuration commands, and validation checks 
 
-**Note:** This is a practice. All the accounts/ passwords are just throwaway testvalues and are not used anywhere else.
+**Note:** This is practice. All the accounts/ passwords are just throwaway testvalues and are not used anywhere else.
 
 ## Lab goals
 
