@@ -163,4 +163,4 @@ Get-ADGroup -Filter * | Select-Object Name
 
 ## Summary
 
-This lab provides a simple Azure-based Active Directory environment for learning and testing core AD concepts such as DNS, domain promotion, OU structure, user creation, and domain joining. It is a good starting point for anyone learning how AD works in a virtualized infrastructure.
+This lab provides a simple Azure-based Active Directory environment for learning/testing core AD concepts such as DNS, domain promotion, OU structure, user creation, and domain joining. Its a good starting point for anyone learning how AD works in a virtualized infrastructure.
