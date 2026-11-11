@@ -64,7 +64,7 @@ This is important because the client will be configured to use DC-1 as its DNS s
 
 ### 3. Open the required ports and firewall rules
 
-Allow the necessary traffic for lab operations:
+Allow the necessary traffic:
 
 - RDP (TCP 3389)
 - DNS (TCP/UDP 53)
