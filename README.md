@@ -37,7 +37,7 @@ The lab uses a single virtual network and subnet so both VMs can communicate rel
 
 ## Prerequisites
 
-Before you begin, make sure you have:
+Need to make sure you have:
 
 - An Azure subscription
 - A resource group and virtual network configured for the lab
