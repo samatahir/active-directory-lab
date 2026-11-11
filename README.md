@@ -137,7 +137,7 @@ Get-ADUser -Filter * | Select-Object Name, SamAccountName
 Get-ADGroup -Filter * | Select-Object Name
 ```
 
-## Artifacts and screenshots
+## Basic infrastructure and Screenshots
 
 <p>
 <img src="https://i.imgur.com/d22FHIm.png" width="80%" alt="Azure virtual machine setup"/>
