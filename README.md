@@ -4,7 +4,7 @@
 
 # Active Directory Lab — Azure Domain Environment
 
-This lab demonstrates how to build a small Active Directory environment in Azure using two virtual machines. It includes the architecture, deployment steps, configuration commands, and validation checks needed to create a working domain environment for testing.
+Demonstrating how to build a small Active Directory environment in Azure using two virtual machines. It includes the architecture, deployment steps, configuration commands, and validation checks needed to create a working domain environment for testing.
 
 > Note: This is a lab environment only. All accounts and passwords are example values used for testing and are not used anywhere else.
 
