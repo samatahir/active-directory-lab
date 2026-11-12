@@ -60,7 +60,7 @@ Make sure both VMs are in the same VNet so they can resolve each other by name a
 
 Assign a static private IP address to DC-1 to avoid DNS issues when the client joins the domain.
 
-This is important because the client will be configured to use DC-1 as its DNS server. A stable IP makes configuration simpler and avoids future name resolution problems.
+This is important because the client will be configured to use DC-1 as its DNS server. A stable IP makes configuration simpler and avoids future name problems.
 
 ### 3. Open the required ports and firewall rules
 
